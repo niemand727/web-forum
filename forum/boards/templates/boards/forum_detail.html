@@ -1,0 +1,20 @@
+<h1>{{ forum.name }}</h1>
+<p>{{ forum.description }}</p>
+<a href="{% url 'create_post' forum.id %}">Create Post</a>
+<ul>
+  {% for post in posts %}
+    <li>{{ post.title }} by {{ post.author.username }} at {{ post.created_at }}</li>
+  {% endfor %}
+</ul>
+
+<ul>
+  {% for post in posts %}
+    <li>
+      <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a> 
+      by {{ post.author.username }} at {{ post.created_at }}
+    </li>
+  {% endfor %}
+</ul>
+
+
+<a href="{% url 'forum_list' %}">Back to forums</a>

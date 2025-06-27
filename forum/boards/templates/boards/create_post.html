@@ -1,0 +1,6 @@
+<h1>Create Post in {{ forum.name }}</h1>
+<form method="post">{% csrf_token %}
+  <label>Title: <input type="text" name="title" required></label><br>
+  <label>Body: <textarea name="body" required></textarea></label><br>
+  <button type="submit">Post</button>
+</form>
