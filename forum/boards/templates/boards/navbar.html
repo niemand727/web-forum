@@ -1,0 +1,9 @@
+<nav>
+  <a href="{% url 'forum_list' %}">Home</a> |
+  <a href="{% url 'profile_view' username=request.user.username %}">Mein Profil</a> |
+  <form action="{% url 'logout' %}" method="post" style="display:inline;">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+  </form>
+</nav>
+<hr>

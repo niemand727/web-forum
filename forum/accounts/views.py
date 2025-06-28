@@ -19,6 +19,6 @@ def signup(request):
 
         user = User.objects.create_user(username=username, password=password)
         login(request, user)
-        return redirect('home')  # Adjust to your home URL name
+        return redirect('/boards/')  # Adjust to your home URL name
 
     return render(request, 'registration/signup.html')

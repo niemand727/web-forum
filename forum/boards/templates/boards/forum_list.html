@@ -1,7 +1,17 @@
+{% include "boards/navbar.html" %}
+
 <h1>Forums</h1>
-<a href="{% url 'create_forum' %}">Create Forum</a>
+
+<form method="get">
+  <input type="text" name="q" placeholder="Forum suchen" value="{{ request.GET.q }}">
+  <button type="submit">Suchen</button>
+</form>
+
 <ul>
   {% for forum in forums %}
     <li><a href="{% url 'forum_detail' forum.id %}">{{ forum.name }}</a></li>
+  {% empty %}
+    <li>Keine Foren gefunden.</li>
   {% endfor %}
 </ul>
+

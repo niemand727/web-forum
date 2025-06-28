@@ -1,5 +1,43 @@
+{% include "boards/navbar.html" %}
+
 <h1>{{ post.title }}</h1>
-<p><strong>Author:</strong> {{ post.author.username }}</p>
-<p><strong>Posted at:</strong> {{ post.created_at }}</p>
-<p>{{ post.body }}</p>
-<a href="{% url 'forum_detail' post.forum.id %}">Back to forum</a>
+<p>{{ post.body }} </p>
+  <p> <form action="{% url 'like_post' post.id %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" style="background:none; border:none; cursor:pointer;">
+            {% if user in post.likes.all %}
+                ❤️
+            {% else %}
+                🤍
+            {% endif %}
+        </button>
+        {{ post.total_likes }} Likes
+  </p> </form>
+
+
+<p>Autor: {{ post.author.username }} | Erstellt: {{ post.created_at }}</p>
+
+<hr>
+<h2>Kommentare</h2>
+<ul>
+  {% for comment in comments %}
+    <li>
+      <strong>{{ comment.author.username }}</strong> ({{ comment.created_at|date:"d.m.Y H:i" }}):<br>
+      {{ comment.content|linebreaks }}
+    </li>
+  {% empty %}
+    <li>Keine Kommentare bisher.</li>
+  {% endfor %}
+</ul>
+
+<hr>
+{% if user.is_authenticated %}
+  <h3>Neuen Kommentar hinzufügen</h3>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Kommentar absenden</button>
+  </form>
+{% else %}
+  <p><a href="{% url 'login' %}">Melde dich an</a>, um einen Kommentar zu schreiben.</p>
+{% endif %}

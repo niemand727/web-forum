@@ -1,3 +1,5 @@
+{% include "boards/navbar.html" %}
+
 <h1>{{ forum.name }}</h1>
 <p>{{ forum.description }}</p>
 <a href="{% url 'create_post' forum.id %}">Create Post</a>

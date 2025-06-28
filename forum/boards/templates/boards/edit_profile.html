@@ -1,0 +1,13 @@
+{% include "boards/navbar.html" %}
+
+<h1>Profil bearbeiten</h1>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <label>Beschreibung:<br>
+    <textarea name="bio">{{ request.user.profile.bio }}</textarea>
+  </label><br>
+  <label>Avatar (nur Bilddateien):<br>
+    <input type="file" name="avatar" accept="image/*">
+  </label><br>
+  <button type="submit">Speichern</button>
+</form>

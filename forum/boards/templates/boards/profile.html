@@ -1,0 +1,30 @@
+{% include "boards/navbar.html" %}
+
+<h1>{{ profile_user.username }}'s Profil</h1>
+
+{% if profile_user.profile.avatar %}
+  <img src="{{ profile_user.profile.avatar.url }}" alt="Profilbild" width="150">
+{% else %}
+  <p>Kein Profilbild vorhanden</p>
+{% endif %}
+
+<p>{{ profile_user.profile.bio }}</p>
+
+{% if request.user == profile_user %}
+  <a href="{% url 'edit_profile' %}">Profil bearbeiten</a>
+{% endif %}
+
+<h2>Letzte Posts</h2>
+<ul>
+  {% for post in posts %}
+    <li>
+      <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
+      im Forum:
+      <a href="{% url 'forum_detail' post.forum.id %}">{{ post.forum.name }}</a>
+      ({{ post.created_at|date:"d.m.Y H:i" }})
+    </li>
+  {% empty %}
+    <li>Keine Posts vorhanden.</li>
+  {% endfor %}
+</ul>
+
